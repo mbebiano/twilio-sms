@@ -3,15 +3,15 @@
 import csv, sys 
 from twilio.rest import Client
 
-MESSAGE_FILE = 'message.txt'     # File containing text message
-CSV_FILE = 'participants.csv'    # File containing participant numbers
+MESSAGE_FILE = 'messagem.txt'     # File containing text message
+CSV_FILE = 'contatos.csv'    # File containing participant numbers
 SMS_LENGTH = 160                 # Max length of one SMS message
-MSG_COST = 0.04                  # Cost per message
+MSG_COST = 0.057                  # Cost per message
 
 # Twilio: Find these values at https://twilio.com/user/account
-account_sid = "<account_sid_goes_here>"
-auth_token = "<auth_token_goes_here>"
-from_num = "075changeme"       # 'From' number in Twilio
+account_sid = "ACd6338b85dbb8742fdbc520105179c0ff"
+auth_token = "8c006551b0666ff31f2661bfd060bb84"
+from_num = "+12056193980"       # 'From' number in Twilio
 
 # Now put your SMS in a file called message.txt, and it will be read from there.
 with open(MESSAGE_FILE, 'r') as content_file:
@@ -47,8 +47,13 @@ if confirm[0].lower() == 'y':
 
     # Send the messages
     for num in numbers:
-        # Send the sms text to the number from the CSV file:
-        print("Sending to " + num)
-        message = client.messages.create(to=num, from_=from_num, body=sms)
+        try:
+            # Send the sms text to the number from the CSV file:
+            print("Sending to " + num)
+            message = client.messages.create(to=num, from_=from_num, body=sms)
+        except:
+            print("Error Sending to " + num)
+            
+        
 
 print("Exiting!")
